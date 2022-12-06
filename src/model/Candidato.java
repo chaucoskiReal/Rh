@@ -12,7 +12,8 @@ public class Candidato {
 
     public enum CargosSistema{
         RH,
-        CANDIDATO;
+        CANDIDATO,
+        PROCESSOSELETIVO;
     }
 
 

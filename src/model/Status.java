@@ -19,4 +19,12 @@ public class Status {
     public void setDescStatus(String descStatus) {
         this.descStatus = descStatus;
     }
+
+
+    public enum status{
+        ABERTO,
+        ANDAMENTO,
+        CONCLUIDO;
+    }
 }
+
