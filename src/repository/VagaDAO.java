@@ -16,6 +16,6 @@ public final class VagaDAO {
     public static void save(List<Vaga> vagaList){vagas.addAll(vagaList);}
 
 
-
+//teste
 
 }
