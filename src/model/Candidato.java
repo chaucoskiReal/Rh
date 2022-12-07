@@ -17,7 +17,9 @@ public class Candidato {
     }
 
 
-
+public Integer getCodigo() {
+        return codigo;
+    }
   
 
     public void setCodigo(Integer codigo) {
