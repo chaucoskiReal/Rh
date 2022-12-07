@@ -13,5 +13,7 @@ public interface IGenericDAO<E> {
     List<E> buscarTodos();
 
     List<E> buscarPorNome(String nome);
+
+    //teste
 }
 
