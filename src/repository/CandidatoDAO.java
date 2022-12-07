@@ -12,7 +12,18 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
 
 
     @Override
-    public void salvar(Candidato objeto) {
+    public void salvar(Candidato objeto) throws SQLException, ClassNotFoundException {
+
+        CandidatoRepository candidatoRepository = new CandidatoRepository();
+
+        if(objeto.getCodigo() != null){
+            candidatoRepository.update(objeto);
+        }else{
+            objeto.setCodigo(candidatoRepository.proximoCodigo());
+            candidatoRepository.insere(objeto);
+        }
+
+
 
     }
 

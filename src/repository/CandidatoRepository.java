@@ -52,10 +52,14 @@ public class CandidatoRepository {
 
     public void update(Candidato candidato) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
-        PreparedStatement stmt = connection.prepareStatement("update candidato " + "SET nomeCandidato = ?, cpf = ? WHERE cd_candidato = ?");
-        stmt.setString(1, candidato.getDescCandidato());
-        stmt.setString(2, candidato.getCpf());
-        stmt.setInt(3, candidato.getCodigo().intValue());
+        PreparedStatement stmt = connection.prepareStatement("update candidato " + "SET ds_candidato = ?, nr_cpf = ? " +
+                ", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?,  WHERE cd_candidato = ?");
+        stmt.setInt(1, candidato.getCodigo());
+        stmt.setString(2, candidato.getDescCandidato());
+        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
+        stmt.setString(4, (candidato.getCpf()));
+        stmt.setString(5, candidato.getDescCurriculo());
+        stmt.setString(6, candidato.getDescEmail());
         int i = stmt.executeUpdate();
         System.out.println(i + "linhas atualizadas");
         connection.close();
@@ -63,7 +67,7 @@ public class CandidatoRepository {
 
     public void delete(Candidato candidato) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM pessoa " + " WHERE id = ? ");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM candidato " + " WHERE cd_candidato = ? ");
 
         stmt.setInt(1, candidato.getCodigo().intValue());
         stmt.executeUpdate();
@@ -76,6 +80,7 @@ public class CandidatoRepository {
 
         PreparedStatement stmt = connection.prepareStatement("select * from candidatos");
         ResultSet resultSet = stmt.executeQuery();
+
 
 
         return candidatos;

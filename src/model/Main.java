@@ -1,23 +1,25 @@
 package model;
 
+import repository.CandidatoDAO;
 import repository.ProcessoSeletivoDAO;
 import repository.VagaDAO;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-    try {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//    try {
         menuOpcaoSistemas();
-    }catch (Exception e){
-        JOptionPane.showMessageDialog(null,"Erro no sistema!\n Entre em contato com o suporte!!!",
-                "ERRO", 0);;
+//    }catch (Exception e){
+//        JOptionPane.showMessageDialog(null,"Erro no sistema!\n Entre em contato com o suporte!!!",
+//                "ERRO", 0);;
+//    }
     }
-    }
-    private static void chamaConfirmacaoVaga() {
+    private static void chamaConfirmacaoVaga() throws SQLException, ClassNotFoundException {
         Integer opcaoCrud = chamaOpcaoCrud();
         Vaga vaga = null;
         switch (opcaoCrud){
@@ -42,7 +44,7 @@ public class Main {
     }
 
 
-    private static void chamaConfirmacaoProcessoSeletivo(){
+    private static void chamaConfirmacaoProcessoSeletivo() throws SQLException, ClassNotFoundException {
         Integer opcaoCrud = chamaOpcaoCrud();
         ProcessoSeletivo processoSeletivo = null;
         switch (opcaoCrud){
@@ -56,7 +58,7 @@ public class Main {
             case 2: //excluir, tem que fazer isso tambem
         }
     }
-    private static ProcessoSeletivo chamaProcessoSeletivo(){
+    private static ProcessoSeletivo chamaProcessoSeletivo() throws SQLException, ClassNotFoundException {
         List<ProcessoSeletivo> processoSeletivos = new ArrayList<>();
         ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
         processoSeletivos.add(processoSeletivo);
@@ -94,7 +96,7 @@ public class Main {
     }
 
 
-    private static Candidato chamaCadastroCandidato(){
+    private static Candidato chamaCadastroCandidato() throws SQLException, ClassNotFoundException {
 
         List<Candidato> candidatos = new ArrayList<>();
         Candidato candidato = new Candidato();
@@ -124,7 +126,9 @@ public class Main {
                 candidato.setDescEmail(descEmail);
 
                 candidatos.add(candidato);
+                CandidatoDAO candidatoDAO = new CandidatoDAO();
 
+                candidatoDAO.salvar(candidato);
 
                 chamaCadastroCandidato();
                 break;
@@ -139,7 +143,7 @@ public class Main {
 
 
 
-    private static Vaga chamaCadastroVagas() {
+    private static Vaga chamaCadastroVagas() throws SQLException, ClassNotFoundException {
             List<Vaga> vagas = new ArrayList<>();
             Vaga vaga = new Vaga();
             vagas.add(vaga);
@@ -187,7 +191,7 @@ public class Main {
         return vaga;
     }
 
-     static Object menuOpcaoSistemas() {
+     static Object menuOpcaoSistemas() throws SQLException, ClassNotFoundException {
         Object[] opcaoInicial = {Candidato.CargosSistema.RH, Candidato.CargosSistema.CANDIDATO, Candidato.CargosSistema.PROCESSOSELETIVO};
         Object selecionado = JOptionPane.showInputDialog(null, "Selecione qual sistema você quer acessar:",
                 "MENU", 1, null, opcaoInicial, " ");
@@ -202,11 +206,11 @@ public class Main {
         return selecionado;
     }
 
-    private static void chamaRh() {
+    private static void chamaRh() throws SQLException, ClassNotFoundException {
         chamaConfirmacaoVaga();
     }
 
-    private static void chamaCandidato(){
+    private static void chamaCandidato() throws SQLException, ClassNotFoundException {
         chamaCadastroCandidato();
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IGenericDAO<E> {
 
-    void salvar(E objeto);
+    void salvar(E objeto) throws SQLException, ClassNotFoundException;
 
     void remover(E objeto) throws SQLException, ClassNotFoundException;
 
