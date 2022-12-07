@@ -9,7 +9,7 @@ public class Candidato {
     private String cpf;
     private String descCurriculo;
     private String descEmail;
-
+//teste push
     public enum CargosSistema{
         RH,
         CANDIDATO,
