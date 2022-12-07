@@ -1,17 +1,12 @@
 package model;
 
-import repository.CandidatoDAO;
 import repository.ProcessoSeletivoDAO;
 import repository.VagaDAO;
 
 import javax.swing.*;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static java.lang.System.exit;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,20 +17,46 @@ public class Main {
                 "ERRO", 0);;
     }
     }
-    private static void chamaConfirmacao () {
-        int confirmacaoCadastroPaciente = JOptionPane.showConfirmDialog(null, "Deseja cadastrar uma vaga? ");
-        if (confirmacaoCadastroPaciente == 0) {
-            chamaCadastroVagas();
-        } else if (confirmacaoCadastroPaciente == 1) {
-            menuOpcaoSistemas();
-        } else if (confirmacaoCadastroPaciente == 2) {
-            JOptionPane.showMessageDialog(null, "PROGRAMA CANCELADO PELO USUÁRIO!",
-                    "AVISO", 0);
-            exit(0);
+    private static void chamaConfirmacaoVaga() {
+        Integer opcaoCrud = chamaOpcaoCrud();
+        Vaga vaga = null;
+        switch (opcaoCrud){
+            case 0: //inserir
+                vaga = chamaCadastroVagas();
+            break;
+
+            case 1: //alterar, tem que fazer as opcoes de alteracao
+                break;
+
+            case 2: //excluir, tem que fazer isso tambem
         }
 
     }
-    private static void chamaProcessoSeletivo(){
+
+    private static Integer chamaOpcaoCrud(){
+        String[] opcao = {"Inserção", "Alteração", "Exclusão"};
+        int tipoOpcao = JOptionPane.showOptionDialog(null,"Escolha uma opção: ",
+                "Operação no cadastro: ",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,null,opcao,
+        opcao[0]);
+            return tipoOpcao;
+    }
+
+
+    private static void chamaConfirmacaoProcessoSeletivo(){
+        Integer opcaoCrud = chamaOpcaoCrud();
+        ProcessoSeletivo processoSeletivo = null;
+        switch (opcaoCrud){
+            case 0: //inserir
+                processoSeletivo = chamaProcessoSeletivo();
+                break;
+
+            case 1: //alterar, tem que fazer as opcoes de alteracao
+                break;
+
+            case 2: //excluir, tem que fazer isso tambem
+        }
+    }
+    private static ProcessoSeletivo chamaProcessoSeletivo(){
         List<ProcessoSeletivo> processoSeletivos = new ArrayList<>();
         ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
         processoSeletivos.add(processoSeletivo);
@@ -69,10 +90,12 @@ public class Main {
                 break;
         }
         ProcessoSeletivoDAO.save(processoSeletivo);
+        return processoSeletivo;
     }
 
 
-    private static void chamaCadastroCandidato(){
+    private static Candidato chamaCadastroCandidato(){
+
         List<Candidato> candidatos = new ArrayList<>();
         Candidato candidato = new Candidato();
         candidatos.add(candidato);
@@ -101,7 +124,7 @@ public class Main {
                 candidato.setDescEmail(descEmail);
 
                 candidatos.add(candidato);
-                CandidatoDAO.save(candidato);
+
 
                 chamaCadastroCandidato();
                 break;
@@ -110,12 +133,13 @@ public class Main {
                 menuOpcaoSistemas();
                 break;
         }
-        CandidatoDAO.save(candidato);
+
+        return candidato;
     }
 
 
 
-    private static void chamaCadastroVagas() {
+    private static Vaga chamaCadastroVagas() {
             List<Vaga> vagas = new ArrayList<>();
             Vaga vaga = new Vaga();
             vagas.add(vaga);
@@ -160,7 +184,8 @@ public class Main {
                     break;
             }
             VagaDAO.save(vagas);
-        }
+        return vaga;
+    }
 
      static Object menuOpcaoSistemas() {
         Object[] opcaoInicial = {Candidato.CargosSistema.RH, Candidato.CargosSistema.CANDIDATO, Candidato.CargosSistema.PROCESSOSELETIVO};
@@ -178,7 +203,7 @@ public class Main {
     }
 
     private static void chamaRh() {
-        chamaConfirmacao();
+        chamaConfirmacaoVaga();
     }
 
     private static void chamaCandidato(){
