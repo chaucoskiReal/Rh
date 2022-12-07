@@ -1,17 +1,60 @@
 package repository;
 
 import model.Candidato;
-import model.Vaga;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandidatoDAO {
-    private static List<Candidato> candidatos = new ArrayList<>();
+public final class CandidatoDAO implements IGenericDAO<Candidato> {
 
-    public static List<Candidato> findCandidato(){return candidatos;}
+    static List<Candidato> candidatos = new ArrayList<>();
 
-    public static void save(Candidato candidato){candidatos.add(candidato);}
 
-    public static void save(List<Candidato> candidatoList){candidatos.addAll(candidatoList);}
+    @Override
+    public void salvar(Candidato objeto) {
+
+    }
+
+    @Override
+    public void remover(Candidato objeto) throws SQLException, ClassNotFoundException {
+
+    }
+
+    @Override
+    public List<Candidato> buscarTodos() {
+        CandidatoRepository   candidatoRepository = new CandidatoRepository();
+        try {
+            candidatos = candidatoRepository.busca();
+        } catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(candidatos);
+        return candidatos;
+
+    }
+
+    @Override
+    public List<Candidato> buscarPorNome(String nome) {
+        List<Candidato> candidatosFiltrados = new ArrayList<>();
+        for (Candidato candidato : candidatos) {
+            if (candidato.getDescCandidato().contains(nome)) {
+                candidatosFiltrados.add(candidato);
+            }
+        }
+        return candidatosFiltrados;
+    }
+
+    public Object[] findPessoasInArray() {
+        List<Candidato> candidatos = buscarTodos();
+        List<String> candidatosNomes = new ArrayList<>();
+
+        for (Candidato candidato : candidatos) {
+            candidatosNomes.add(candidato.getDescCandidato());
+        }
+
+        return candidatosNomes.toArray();
+    }
+
 }
