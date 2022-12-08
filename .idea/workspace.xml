@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0063aaba-c7b5-47e4-a1bd-24584aa0f9eb" name="Changes" comment="Fazendo a ligacao com da vaga com o banco">
+    <list default="true" id="86ca041c-3381-4092-b5ff-aaa518ad42cb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Rh.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Vaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Vaga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/CandidatoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/CandidatoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/VagaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/VagaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/VagaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/VagaRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="Teste" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Id5wIsz51H6SoaIks8qF86LotM" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2IdpPts8v8JXoXZmXpZbLtzWe9L" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -38,44 +34,18 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/João Vitor/Desktop/Rogerio Projeto",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+    "last_opened_file_path": "C:/Users/João Vitor/Desktop/Teste"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0063aaba-c7b5-47e4-a1bd-24584aa0f9eb" name="Changes" comment="" />
-      <created>1670498858736</created>
+      <changelist id="86ca041c-3381-4092-b5ff-aaa518ad42cb" name="Changes" comment="" />
+      <created>1670521295712</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1670498858736</updated>
+      <updated>1670521295712</updated>
     </task>
-    <task id="LOCAL-00001" summary="Fazendo a ligacao com o banco na minha maquina">
-      <created>1670500981765</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1670500981765</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Fazendo a ligacao com da vaga com o banco">
-      <created>1670507816395</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670507816395</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Fazendo a ligacao com da vaga com o banco">
-      <created>1670516618506</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1670516618506</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -88,10 +58,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fazendo a ligacao com o banco na minha maquina" />
-    <MESSAGE value="Fazendo a ligacao com da vaga com o banco" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fazendo a ligacao com da vaga com o banco" />
   </component>
 </project>

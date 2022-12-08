@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class VagaDAO implements IGenericDAO<Vaga>{
 
-     static List<Vaga> vagas = new ArrayList<>();
+    static List<Vaga> vagas = new ArrayList<>();
 
 
 

@@ -181,11 +181,6 @@ public class Main {
                 String dsStatusProcessoSeletivo = JOptionPane.showInputDialog("Escreva a descrição do status do processo seletivo: ");
                 processoSeletivo.setDescStatusProcesso(dsStatusProcessoSeletivo);
 
-                String dtInicio = JOptionPane.showInputDialog("Escreva a data inicio do processo seletivo: ");
-                processoSeletivo.setDataInicio(LocalDate.parse(dtInicio));
-
-                String dtFim = JOptionPane.showInputDialog("Escreva a data fim do processo seletivo: ");
-                processoSeletivo.setDataFim(LocalDate.parse(dtFim));
 
 
                 processoSeletivos.add(processoSeletivo);

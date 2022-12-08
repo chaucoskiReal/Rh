@@ -1,0 +1,225 @@
+Index: src/repository/CandidatoRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository;\r\n\r\nimport model.Candidato;\r\n\r\nimport java.sql.*;\r\nimport java.time.LocalDate;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class CandidatoRepository {\r\n\r\n    public Connection getConnection() throws ClassNotFoundException, SQLException {\r\n        Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n        String url = \"jdbc:mysql://localhost:3306/db_rh\";\r\n        Connection connection = DriverManager.getConnection(url, \"root\", \"010670Mae\");\r\n\r\n\r\n        return connection;\r\n    }\r\n\r\n    public void insere(Candidato candidato) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"insert into \" +\r\n                \"candidato values(?, ?, ?, ?, ?, ?)\");\r\n        stmt.setInt(1, candidato.getCodigo());\r\n        stmt.setString(2, candidato.getDescCandidato());\r\n        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));\r\n        stmt.setString(4, (candidato.getCpf()));\r\n        stmt.setString(5, candidato.getDescCurriculo());\r\n        stmt.setString(6, candidato.getDescEmail());\r\n\r\n        int i = stmt.executeUpdate();\r\n        System.out.println(i + \" linhas inseridas\");\r\n        connection.close();\r\n\r\n    }\r\n\r\n    public Integer proximoCodigo() throws SQLException, ClassNotFoundException {\r\n\r\n        List<Candidato> candidatos = new ArrayList<>();\r\n\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"select max(cd_candidato) from candidato \");\r\n        ResultSet resultSet = stmt.executeQuery();\r\n\r\n        while (resultSet.next()) {\r\n            return resultSet.getInt(1) + 1;\r\n        }\r\n        return 1;\r\n    }\r\n\r\n    public void update(Candidato candidato) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n        PreparedStatement stmt = connection.prepareStatement(\"update candidato \" + \"SET ds_candidato = ?, nr_cpf = ? \" +\r\n                \", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?  WHERE cd_candidato = ? \");\r\n\r\n        stmt.setString(1, candidato.getDescCandidato());\r\n        stmt.setString(2, (candidato.getCpf()));\r\n        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));\r\n        stmt.setString(4, candidato.getDescCurriculo());\r\n        stmt.setString(5, candidato.getDescEmail());\r\n        stmt.setInt(6, candidato.getCodigo());\r\n        int i = stmt.executeUpdate();\r\n        System.out.println(i + \"linhas atualizadas\");\r\n        connection.close();\r\n    }\r\n\r\n    public void delete(Candidato candidato) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n        PreparedStatement stmt = connection.prepareStatement(\"DELETE FROM candidato \" + \" WHERE cd_candidato = ? \");\r\n\r\n        stmt.setInt(1, candidato.getCodigo().intValue());\r\n        stmt.executeUpdate();\r\n        connection.close();\r\n    }\r\n\r\n    public List<Candidato> busca() throws SQLException, ClassNotFoundException {\r\n        List<Candidato> candidatos = new ArrayList<>();\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"select * from candidato\");\r\n        ResultSet resultSet = stmt.executeQuery();\r\n\r\n        while (resultSet.next()) {\r\n            Candidato candidato = new Candidato();\r\n            candidato.setCodigo(resultSet.getInt(1));\r\n            candidato.setDescCandidato(resultSet.getString(2));\r\n            candidato.setDataNascimento(LocalDate.parse(resultSet.getString(3)));\r\n            candidato.setCpf(resultSet.getString(4));\r\n            candidato.setDescCurriculo(resultSet.getString(5));\r\n            candidato.setDescEmail(resultSet.getString(6));\r\n\r\n            candidatos.add(candidato);\r\n        }\r\n        connection.close();\r\n        return candidatos;\r\n\r\n//TODO WHILE\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/repository/CandidatoRepository.java b/src/repository/CandidatoRepository.java
+--- a/src/repository/CandidatoRepository.java	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/src/repository/CandidatoRepository.java	(date 1670521239836)
+@@ -12,7 +12,7 @@
+     public Connection getConnection() throws ClassNotFoundException, SQLException {
+         Class.forName("com.mysql.cj.jdbc.Driver");
+         String url = "jdbc:mysql://localhost:3306/db_rh";
+-        Connection connection = DriverManager.getConnection(url, "root", "010670Mae");
++        Connection connection = DriverManager.getConnection(url, "root", "");
+ 
+ 
+         return connection;
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ /dev/null	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/Rh.iml" filepath="$PROJECT_DIR$/Rh.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/.idea/vcs.xml	(date 1670521299139)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: Rh.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"mysql-connector-java-8.0.28\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Rh.iml b/Rh.iml
+--- a/Rh.iml	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/Rh.iml	(date 1670521299025)
+@@ -7,6 +7,5 @@
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/libraries/mysql_connector_java_8_0_28.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"mysql-connector-java-8.0.28\">\r\n    <CLASSES>\r\n      <root url=\"jar://$PROJECT_DIR$/../mysql-connector-java-8.0.28.jar!/\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/mysql_connector_java_8_0_28.xml b/.idea/libraries/mysql_connector_java_8_0_28.xml
+--- a/.idea/libraries/mysql_connector_java_8_0_28.xml	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/.idea/libraries/mysql_connector_java_8_0_28.xml	(date 1670521299071)
+@@ -1,7 +1,7 @@
+ <component name="libraryTable">
+   <library name="mysql-connector-java-8.0.28">
+     <CLASSES>
+-      <root url="jar://$PROJECT_DIR$/../mysql-connector-java-8.0.28.jar!/" />
++      <root url="jar://$PROJECT_DIR$/mysql-connector-java-8.0.28.jar!/" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: src/repository/VagaRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository;\r\n\r\n        import model.Candidato;\r\n        import model.Vaga;\r\n\r\n        import java.sql.*;\r\n        import java.util.ArrayList;\r\n        import java.util.List;\r\n\r\npublic class VagaRepository {\r\n\r\n    public Connection getConnection() throws ClassNotFoundException, SQLException {\r\n        Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n        String url = \"jdbc:mysql://localhost:3306/db_rh\";\r\n        Connection connection = DriverManager.getConnection(url, \"root\", \"010670Mae\");\r\n\r\n\r\n        return connection;\r\n    }\r\n\r\n    public void insere(Vaga vaga) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"insert into \" +\r\n                \"vaga values(?, ?, ?, ?, ?, ?)\");\r\n        stmt.setInt(1, vaga.getCodigoVaga());\r\n        stmt.setString(2, vaga.getDescVaga());\r\n        stmt.setString(3, String.valueOf(vaga.getDescRequisitos()));\r\n        stmt.setInt(4,vaga.getStatusVaga().ordinal());\r\n        stmt.setString(5, String.valueOf(vaga.getDataInicio()));\r\n        stmt.setString(6, String.valueOf(vaga.getDataFim()));\r\n\r\n\r\n        int i = stmt.executeUpdate();\r\n        System.out.println(i + \" linhas inseridas\");\r\n        connection.close();\r\n\r\n    }\r\n\r\n    public Integer proximoCodigo() throws SQLException, ClassNotFoundException {\r\n\r\n        List<Vaga> vaga = new ArrayList<>();\r\n\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"select max(cd_vaga) from vaga \");\r\n        ResultSet resultSet = stmt.executeQuery();\r\n\r\n        while (resultSet.next()) {\r\n            return resultSet.getInt(1) + 1;\r\n        }\r\n        return 1;\r\n    }\r\n\r\n    public void update(Vaga vaga) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n        PreparedStatement stmt = connection.prepareStatement(\"update vaga \" + \"SET ds_vaga = ?, ds_requisito = ? \" +\r\n                \", cd_status = ?, dt_inicio = ?, dt_fim = ?,  WHERE cd_vaga = ?\");\r\n\r\n        stmt.setString(1, vaga.getDescVaga());\r\n        stmt.setString(2, String.valueOf(vaga.getDescRequisitos()));\r\n        stmt.setInt(3,vaga.getStatusVaga().ordinal());\r\n        stmt.setString(4, String.valueOf(vaga.getDataInicio()));\r\n        stmt.setString(5, String.valueOf(vaga.getDataFim()));\r\n        stmt.setInt(6, vaga.getCodigoVaga());\r\n        int i = stmt.executeUpdate();\r\n        System.out.println(i + \"linhas atualizadas\");\r\n        connection.close();\r\n    }\r\n\r\n    public void delete(Vaga vaga) throws SQLException, ClassNotFoundException {\r\n        Connection connection = getConnection();\r\n        PreparedStatement stmt = connection.prepareStatement(\"DELETE FROM candidato \" + \" WHERE cd_candidato = ? \");\r\n\r\n        stmt.setInt(1, vaga.getCodigoVaga().intValue());\r\n        stmt.executeUpdate();\r\n        connection.close();\r\n    }\r\n\r\n    public List<Vaga> busca() throws SQLException, ClassNotFoundException {\r\n        List<Vaga> vagas = new ArrayList<>();\r\n        Connection connection = getConnection();\r\n\r\n        PreparedStatement stmt = connection.prepareStatement(\"select * from vaga\");\r\n        ResultSet resultSet = stmt.executeQuery();\r\n\r\n\r\n\r\n        return vagas;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/repository/VagaRepository.java b/src/repository/VagaRepository.java
+--- a/src/repository/VagaRepository.java	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/src/repository/VagaRepository.java	(date 1670521239816)
+@@ -12,7 +12,7 @@
+     public Connection getConnection() throws ClassNotFoundException, SQLException {
+         Class.forName("com.mysql.cj.jdbc.Driver");
+         String url = "jdbc:mysql://localhost:3306/db_rh";
+-        Connection connection = DriverManager.getConnection(url, "root", "010670Mae");
++        Connection connection = DriverManager.getConnection(url, "root", "");
+ 
+ 
+         return connection;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0063aaba-c7b5-47e4-a1bd-24584aa0f9eb\" name=\"Changes\" comment=\"Fazendo a ligacao com da vaga com o banco\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/model/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/model/Main.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Teste\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Id5wIsz51H6SoaIks8qF86LotM\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/João Vitor/Desktop/Rogerio Projeto\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0063aaba-c7b5-47e4-a1bd-24584aa0f9eb\" name=\"Changes\" comment=\"\" />\r\n      <created>1670498858736</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1670498858736</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Fazendo a ligacao com o banco na minha maquina\">\r\n      <created>1670500981765</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670500981765</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Fazendo a ligacao com da vaga com o banco\">\r\n      <created>1670507816395</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670507816395</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Fazendo a ligacao com da vaga com o banco\">\r\n      <created>1670516618506</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670516618506</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Fazendo a ligacao com o banco na minha maquina\" />\r\n    <MESSAGE value=\"Fazendo a ligacao com da vaga com o banco\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fazendo a ligacao com da vaga com o banco\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5f6caf796b7d29ec8b659fe4c9d125dfa1d7150e)
++++ b/.idea/workspace.xml	(date 1670521299095)
+@@ -1,35 +1,16 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="0063aaba-c7b5-47e4-a1bd-24584aa0f9eb" name="Changes" comment="Fazendo a ligacao com da vaga com o banco">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/model/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Main.java" afterDir="false" />
+-    </list>
++    <list default="true" id="86ca041c-3381-4092-b5ff-aaa518ad42cb" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Class" />
+-      </list>
+-    </option>
+   </component>
+   <component name="Git.Settings">
+-    <option name="RECENT_BRANCH_BY_REPOSITORY">
+-      <map>
+-        <entry key="$PROJECT_DIR$" value="Teste" />
+-      </map>
+-    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="MarkdownSettingsMigration">
+-    <option name="stateVersion" value="1" />
+-  </component>
+-  <component name="ProjectId" id="2Id5wIsz51H6SoaIks8qF86LotM" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
++  <component name="ProjectId" id="2IdpPts8v8JXoXZmXpZbLtzWe9L" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -37,61 +18,18 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "last_opened_file_path": "C:/Users/João Vitor/Desktop/Rogerio Projeto",
+-    "project.structure.last.edited": "Libraries",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.2"
++    "RunOnceActivity.ShowReadmeOnStart": "true"
+   }
+ }]]></component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="0063aaba-c7b5-47e4-a1bd-24584aa0f9eb" name="Changes" comment="" />
+-      <created>1670498858736</created>
++      <changelist id="86ca041c-3381-4092-b5ff-aaa518ad42cb" name="Changes" comment="" />
++      <created>1670521295712</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1670498858736</updated>
+-    </task>
+-    <task id="LOCAL-00001" summary="Fazendo a ligacao com o banco na minha maquina">
+-      <created>1670500981765</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1670500981765</updated>
++      <updated>1670521295712</updated>
+     </task>
+-    <task id="LOCAL-00002" summary="Fazendo a ligacao com da vaga com o banco">
+-      <created>1670507816395</created>
+-      <option name="number" value="00002" />
+-      <option name="presentableId" value="LOCAL-00002" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1670507816395</updated>
+-    </task>
+-    <task id="LOCAL-00003" summary="Fazendo a ligacao com da vaga com o banco">
+-      <created>1670516618506</created>
+-      <option name="number" value="00003" />
+-      <option name="presentableId" value="LOCAL-00003" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1670516618506</updated>
+-    </task>
+-    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="Fazendo a ligacao com o banco na minha maquina" />
+-    <MESSAGE value="Fazendo a ligacao com da vaga com o banco" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Fazendo a ligacao com da vaga com o banco" />
+-  </component>
+ </project>
+\ No newline at end of file
