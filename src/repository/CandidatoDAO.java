@@ -24,7 +24,6 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
         }
 
 
-
     }
 
     @Override

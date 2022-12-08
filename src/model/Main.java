@@ -28,11 +28,28 @@ public class Main {
             break;
 
             case 1: //alterar, tem que fazer as opcoes de alteracao
+                vaga = selecaoVaga();
+                vaga = editaVaga(vaga);
+                VagaDAO vagaDAO = new VagaDAO();
+                vagaDAO.salvar(vaga);
                 break;
 
             case 2: //excluir, tem que fazer isso tambem
+                vaga = selecaoVaga();
+                getVagaDAO().remover(vaga);
+                vaga = null;
+                break;
         }
 
+    }
+
+    private static Vaga selecaoVaga(){
+        Object[] selectionValues = getVagaDAO().findVagaInArray();
+        String initialSelection = (String) selectionValues[0];
+        Object selection = JOptionPane.showInputDialog(null, "Selecione a vaga: ",
+                "Vaga", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+        List<Vaga> vagas = getVagaDAO().buscarPorNome((String) selection);
+        return vagas.get(0);
     }
 
     private static void chamaConfirmacaoCandidato() throws SQLException, ClassNotFoundException {
@@ -59,6 +76,25 @@ public class Main {
 
 
     }
+    private static Vaga editaVaga(Vaga vagaEdit) {
+        String statusVaga = JOptionPane.showInputDialog(null, "Digite a descrição do candidato: ", vagaEdit.getStatusVaga());
+        String descVaga = JOptionPane.showInputDialog(null, "Digite a descrição da vaga: ", vagaEdit.getDescVaga());
+        LocalDate dataInicio = LocalDate.parse(JOptionPane.showInputDialog(null, "Digite a data de inicio da vaga: ", vagaEdit.getDataInicio()));
+        LocalDate dataFim = LocalDate.parse(JOptionPane.showInputDialog(null, "Digite a data de fim da vaga: ", vagaEdit.getDataFim()));
+        String descRequisitos = JOptionPane.showInputDialog(null, "Digite os requisitos da vaga: ", vagaEdit.getDescRequisitos());
+
+
+        Vaga vaga = new Vaga();
+        vaga.setStatusVaga(Status.valueOf(statusVaga));
+        vaga.setDescVaga(descVaga);
+        vaga.setDataInicio(dataInicio);
+        vaga.setDataFim(dataFim);
+        vaga.setDescRequisitos(descRequisitos);
+
+        return vaga;
+
+    }
+
 
     private static Candidato selecaoDeCandidato() throws SQLException, ClassNotFoundException {
         Object[] selectionValues = getCandidatoDAO().findCandidatoInArray();
@@ -211,16 +247,16 @@ public class Main {
                 case 0:
                     vaga.setCodigoVaga(1);
 
-                    Object[] status = {Status.status.ABERTO,Status.status.ANDAMENTO,Status.status.CONCLUIDO};
+                    Object[] status = {Status.ABERTO,Status.ANDAMENTO,Status.CONCLUIDO};
                     Object selecionado = JOptionPane.showInputDialog(null, "Selecione qual o status da vaga:",
                             "MENU", 1, null, status, " ");
 
-                    if(selecionado == (Status.status.ABERTO)){
-                        vaga.setDescStatus("ABERTO");
-                    }else if (selecionado == (Status.status.ANDAMENTO)){
-                        vaga.setDescStatus("ANDAMENTO");
-                    }else if (selecionado == (Status.status.CONCLUIDO)){
-                        vaga.setDescStatus("CONCLUIDOS");
+                    if(selecionado == (Status.ABERTO)){
+                        vaga.setStatusVaga(Status.valueOf("ABERTO"));
+                    }else if (selecionado == (Status.ANDAMENTO)){
+                        vaga.setStatusVaga(Status.valueOf("ANDAMENTO"));
+                    }else if (selecionado == (Status.CONCLUIDO)){
+                        vaga.setStatusVaga(Status.valueOf("CONCLUIDOS"));
                     }
 
 
@@ -232,9 +268,6 @@ public class Main {
 
 
 
-                    vagas.add(vaga);
-                    VagaDAO.save(vaga);
-
                     chamaCadastroVagas();
                     break;
 
@@ -242,7 +275,6 @@ public class Main {
                     menuOpcaoSistemas();
                     break;
             }
-            VagaDAO.save(vagas);
         return vaga;
     }
 
@@ -274,12 +306,12 @@ public class Main {
         return candidatoDAO;
     }
 
-    public static ProcessoSeletivoDAO processoSeletivoDAO(){
+    public static ProcessoSeletivoDAO getProcessoSeletivoDAO(){
         ProcessoSeletivoDAO processoSeletivoDAO = new ProcessoSeletivoDAO();
         return processoSeletivoDAO;
     }
 
-    public static VagaDAO vagaDAO(){
+    public static VagaDAO getVagaDAO(){
         VagaDAO vagaDAO = new VagaDAO();
         return vagaDAO;
     }
