@@ -82,6 +82,7 @@ public class Main {
         candidato.setCpf(cpf);
         candidato.setDescCurriculo(descCurriculo);
         candidato.setDescEmail(email);
+        candidato.setCodigo(candidatoEdit.getCodigo());
 
         return candidato;
 
@@ -164,7 +165,6 @@ public class Main {
 
         switch (menuCadastroCurriculo) {
             case 0:
-
                 String dsCandidato = JOptionPane.showInputDialog("Escreva a descrição do candidato: ");
                 candidato.setDescCandidato(dsCandidato);
 
@@ -209,7 +209,7 @@ public class Main {
 
             switch (menuCadastroVaga) {
                 case 0:
-
+                    vaga.setCodigoVaga(1);
 
                     Object[] status = {Status.status.ABERTO,Status.status.ANDAMENTO,Status.status.CONCLUIDO};
                     Object selecionado = JOptionPane.showInputDialog(null, "Selecione qual o status da vaga:",

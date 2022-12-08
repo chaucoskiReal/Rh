@@ -22,7 +22,7 @@ public class CandidatoRepository {
 
         PreparedStatement stmt = connection.prepareStatement("insert into " +
                 "candidato values(?, ?, ?, ?, ?, ?)");
-        stmt.setInt(1, candidato.getCodigo());
+        stmt.setInt(1, candidato.setCodigo(null));
         stmt.setString(2, candidato.getDescCandidato());
         stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
         stmt.setString(4, (candidato.getCpf()));
@@ -54,13 +54,12 @@ public class CandidatoRepository {
         Connection connection = getConnection();
         PreparedStatement stmt = connection.prepareStatement("update candidato " + "SET ds_candidato = ?, nr_cpf = ? " +
                 ", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?,  WHERE cd_candidato = ?");
-
-        stmt.setString(1, candidato.getDescCandidato());
-        stmt.setString(2, String.valueOf(candidato.getDataNascimento()));
-        stmt.setString(3, (candidato.getCpf()));
-        stmt.setString(4, candidato.getDescCurriculo());
-        stmt.setString(5, candidato.getDescEmail());
-        stmt.setInt(6, candidato.getCodigo());
+        stmt.setInt(1, candidato.getCodigo());
+        stmt.setString(2, candidato.getDescCandidato());
+        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
+        stmt.setString(4, (candidato.getCpf()));
+        stmt.setString(5, candidato.getDescCurriculo());
+        stmt.setString(6, candidato.getDescEmail());
         int i = stmt.executeUpdate();
         System.out.println(i + "linhas atualizadas");
         connection.close();
