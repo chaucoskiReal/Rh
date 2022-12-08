@@ -82,6 +82,7 @@ public class Main {
         candidato.setCpf(cpf);
         candidato.setDescCurriculo(descCurriculo);
         candidato.setDescEmail(email);
+        candidato.setCodigo(candidatoEdit.getCodigo());
 
         return candidato;
 
@@ -164,7 +165,6 @@ public class Main {
 
         switch (menuCadastroCurriculo) {
             case 0:
-                candidato.setCodigo(1);
                 String dsCandidato = JOptionPane.showInputDialog("Escreva a descrição do candidato: ");
                 candidato.setDescCandidato(dsCandidato);
 
