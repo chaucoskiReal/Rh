@@ -15,6 +15,6 @@ public enum Status {
         } else if (opcao == 3) {
             return CONCLUIDO;
         }
-        return null;
+        return getTipoById(opcao);
     }
 }

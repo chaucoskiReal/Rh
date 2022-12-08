@@ -14,7 +14,7 @@ public class Vaga  {
         return statusVaga;
     }
 
-    public void setStatusVaga(Status statusVaga) {
+    public void setStatusVaga(int i) {
         this.statusVaga = statusVaga;
     }
 

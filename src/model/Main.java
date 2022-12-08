@@ -77,6 +77,18 @@ public class Main {
 
     }
     private static Vaga editaVaga(Vaga vagaEdit) {
+        Vaga vaga = new Vaga();
+        Object[] status = {Status.ABERTO,Status.ANDAMENTO,Status.CONCLUIDO};
+        Object selecionado = JOptionPane.showInputDialog(null, "Selecione qual o status da vaga:",
+                "MENU", 1, null, status, " ");
+
+        if(selecionado == (Status.ABERTO)){
+            vaga.setStatusVaga(1);
+        }else if (selecionado == (Status.ANDAMENTO)){
+            vaga.setStatusVaga(2);
+        }else if (selecionado == (Status.CONCLUIDO)){
+            vaga.setStatusVaga(3);
+        }
         String statusVaga = JOptionPane.showInputDialog(null, "Digite a descrição do candidato: ", vagaEdit.getStatusVaga());
         String descVaga = JOptionPane.showInputDialog(null, "Digite a descrição da vaga: ", vagaEdit.getDescVaga());
         LocalDate dataInicio = LocalDate.parse(JOptionPane.showInputDialog(null, "Digite a data de inicio da vaga: ", vagaEdit.getDataInicio()));
@@ -84,8 +96,6 @@ public class Main {
         String descRequisitos = JOptionPane.showInputDialog(null, "Digite os requisitos da vaga: ", vagaEdit.getDescRequisitos());
 
 
-        Vaga vaga = new Vaga();
-        vaga.setStatusVaga(Status.valueOf(statusVaga));
         vaga.setDescVaga(descVaga);
         vaga.setDataInicio(dataInicio);
         vaga.setDataFim(dataFim);
@@ -234,7 +244,8 @@ public class Main {
 
 
 
-    private static Vaga chamaCadastroVagas() throws SQLException, ClassNotFoundException {
+    private static Vaga
+    chamaCadastroVagas() throws SQLException, ClassNotFoundException {
             List<Vaga> vagas = new ArrayList<>();
             Vaga vaga = new Vaga();
             vagas.add(vaga);
@@ -245,18 +256,17 @@ public class Main {
 
             switch (menuCadastroVaga) {
                 case 0:
-                    vaga.setCodigoVaga(1);
 
                     Object[] status = {Status.ABERTO,Status.ANDAMENTO,Status.CONCLUIDO};
                     Object selecionado = JOptionPane.showInputDialog(null, "Selecione qual o status da vaga:",
                             "MENU", 1, null, status, " ");
 
                     if(selecionado == (Status.ABERTO)){
-                        vaga.setStatusVaga(Status.valueOf("ABERTO"));
+                        vaga.setStatusVaga(1);
                     }else if (selecionado == (Status.ANDAMENTO)){
-                        vaga.setStatusVaga(Status.valueOf("ANDAMENTO"));
+                        vaga.setStatusVaga(2);
                     }else if (selecionado == (Status.CONCLUIDO)){
-                        vaga.setStatusVaga(Status.valueOf("CONCLUIDOS"));
+                        vaga.setStatusVaga(3);
                     }
 
 
@@ -266,6 +276,16 @@ public class Main {
                     String dsRequisitos = JOptionPane.showInputDialog("Escreva a descrição dos requisitos: ");
                     vaga.setDescRequisitos(dsRequisitos);
 
+                    LocalDate dtInicio = LocalDate.parse(JOptionPane.showInputDialog("Digite a data inicio da vaga: "));
+                    vaga.setDataInicio(dtInicio);
+
+                    LocalDate dtFim = LocalDate.parse(JOptionPane.showInputDialog("Digite a data fim da vaga: "));
+                    vaga.setDataInicio(dtFim);
+
+                    vagas.add(vaga);
+
+                    VagaDAO vagaDAO = new VagaDAO();
+                    vagaDAO.salvar(vaga);
 
 
                     chamaCadastroVagas();
