@@ -12,7 +12,7 @@ public class CandidatoRepository {
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/db_rh";
-        Connection connection = DriverManager.getConnection(url, "root", "010670Mae");
+        Connection connection = DriverManager.getConnection(url, "root", "");
 
 
         return connection;
@@ -54,11 +54,11 @@ public class CandidatoRepository {
     public void update(Candidato candidato) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
         PreparedStatement stmt = connection.prepareStatement("update candidato " + "SET ds_candidato = ?, nr_cpf = ? " +
-                ", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?  WHERE cd_candidato = ? ");
+                ", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?,  WHERE cd_candidato = ? ");
 
         stmt.setString(1, candidato.getDescCandidato());
-        stmt.setString(2, (candidato.getCpf()));
-        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
+        stmt.setString(2, String.valueOf(candidato.getDataNascimento()));
+        stmt.setString(3, (candidato.getCpf()));
         stmt.setString(4, candidato.getDescCurriculo());
         stmt.setString(5, candidato.getDescEmail());
         stmt.setInt(6, candidato.getCodigo());

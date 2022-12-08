@@ -1,18 +1,31 @@
 package repository;
 
+<<<<<<< HEAD
         import model.Candidato;
         import model.Vaga;
 
         import java.sql.*;
         import java.util.ArrayList;
         import java.util.List;
+=======
+import model.Candidato;
+import model.Vaga;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> origin/master
 
 public class VagaRepository {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/db_rh";
+<<<<<<< HEAD
         Connection connection = DriverManager.getConnection(url, "root", "010670Mae");
+=======
+        Connection connection = DriverManager.getConnection(url, "root", "");
+>>>>>>> origin/master
 
 
         return connection;
@@ -68,24 +81,48 @@ public class VagaRepository {
         connection.close();
     }
 
+<<<<<<< HEAD
     public void delete(Vaga vaga) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM candidato " + " WHERE cd_candidato = ? ");
 
         stmt.setInt(1, vaga.getCodigoVaga().intValue());
+=======
+    public void delete(Candidato candidato) throws SQLException, ClassNotFoundException {
+        Connection connection = getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM candidato " + " WHERE cd_candidato = ? ");
+
+        stmt.setInt(1, candidato.getCodigo().intValue());
+>>>>>>> origin/master
         stmt.executeUpdate();
         connection.close();
     }
 
+<<<<<<< HEAD
     public List<Vaga> busca() throws SQLException, ClassNotFoundException {
         List<Vaga> vagas = new ArrayList<>();
         Connection connection = getConnection();
 
         PreparedStatement stmt = connection.prepareStatement("select * from vaga");
+=======
+    public List<Candidato> busca() throws SQLException, ClassNotFoundException {
+        List<Candidato> candidatos = new ArrayList<>();
+        Connection connection = getConnection();
+
+        PreparedStatement stmt = connection.prepareStatement("select * from candidatos");
+>>>>>>> origin/master
         ResultSet resultSet = stmt.executeQuery();
 
 
 
+<<<<<<< HEAD
         return vagas;
     }
 }
+=======
+        return candidatos;
+    }
+}
+
+
+>>>>>>> origin/master

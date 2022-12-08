@@ -1,20 +1,30 @@
 package model;
 
-import javax.swing.*;
+public class Status {
+    private Integer codigoStatus;
+    private String descStatus;
 
-public enum Status {
-    ABERTO,
-    ANDAMENTO,
-    CONCLUIDO;
+    public Integer getCodigoStatus() {
+        return codigoStatus;
+    }
 
-    public static Object getTipoById(Integer opcao) {
-        if (opcao == 1) {
-            return ABERTO;
-        } else if (opcao == 2) {
-            return ANDAMENTO;
-        } else if (opcao == 3) {
-            return CONCLUIDO;
-        }
-        return getTipoById(opcao);
+    public void setCodigoStatus(Integer codigoStatus) {
+        this.codigoStatus = codigoStatus;
+    }
+
+    public String getDescStatus() {
+        return descStatus;
+    }
+
+    public void setDescStatus(String descStatus) {
+        this.descStatus = descStatus;
+    }
+
+
+    public enum status{
+        ABERTO,
+        ANDAMENTO,
+        CONCLUIDO;
     }
 }
+
