@@ -105,6 +105,11 @@ public class Main {
 
     }
 
+    private static void chamaRelatorioCandidato(){
+        List<Candidato> candidatos = getCandidatoDAO().buscarTodos();
+
+    }
+
 
     private static Candidato selecaoDeCandidato() throws SQLException, ClassNotFoundException {
         Object[] selectionValues = getCandidatoDAO().findCandidatoInArray();
