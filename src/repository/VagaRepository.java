@@ -1,12 +1,13 @@
 package repository;
 
 import model.Candidato;
+import model.Vaga;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandidatoRepository {
+public class VagaRepository {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -17,17 +18,18 @@ public class CandidatoRepository {
         return connection;
     }
 
-    public void insere(Candidato candidato) throws SQLException, ClassNotFoundException {
+    public void insere(Vaga vaga) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
 
         PreparedStatement stmt = connection.prepareStatement("insert into " +
-                "candidato values(?, ?, ?, ?, ?, ?)");
-        stmt.setInt(1, candidato.getCodigo());
-        stmt.setString(2, candidato.getDescCandidato());
-        stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
-        stmt.setString(4, (candidato.getCpf()));
-        stmt.setString(5, candidato.getDescCurriculo());
-        stmt.setString(6, candidato.getDescEmail());
+                "vaga values(?, ?, ?, ?, ?, ?)");
+        stmt.setInt(1, vaga.getCodigoVaga());
+        stmt.setString(2, vaga.getDescVaga());
+        stmt.setString(3, String.valueOf(vaga.getDescRequisitos()));
+        stmt.setInt(4,vaga.getStatusVaga().ordinal());
+        stmt.setString(5, String.valueOf(vaga.getDataInicio()));
+        stmt.setString(6, String.valueOf(vaga.getDataFim()));
+
 
         int i = stmt.executeUpdate();
         System.out.println(i + " linhas inseridas");
@@ -37,11 +39,11 @@ public class CandidatoRepository {
 
     public Integer proximoCodigo() throws SQLException, ClassNotFoundException {
 
-        List<Candidato> candidatos = new ArrayList<>();
+        List<Vaga> vaga = new ArrayList<>();
 
         Connection connection = getConnection();
 
-        PreparedStatement stmt = connection.prepareStatement("select max(cd_candidato) from candidato ");
+        PreparedStatement stmt = connection.prepareStatement("select max(cd_vaga) from vaga ");
         ResultSet resultSet = stmt.executeQuery();
 
         while (resultSet.next()) {
@@ -50,17 +52,17 @@ public class CandidatoRepository {
         return 1;
     }
 
-    public void update(Candidato candidato) throws SQLException, ClassNotFoundException {
+    public void update(Vaga vaga) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
-        PreparedStatement stmt = connection.prepareStatement("update candidato " + "SET ds_candidato = ?, nr_cpf = ? " +
-                ", dt_nascimento = ?, ds_curriculo = ?, ds_email = ?,  WHERE cd_candidato = ?");
+        PreparedStatement stmt = connection.prepareStatement("update vaga " + "SET ds_vaga = ?, ds_requisito = ? " +
+                ", cd_status = ?, dt_inicio = ?, dt_fim = ?,  WHERE cd_vaga = ?");
 
-        stmt.setString(1, candidato.getDescCandidato());
-        stmt.setString(2, String.valueOf(candidato.getDataNascimento()));
-        stmt.setString(3, (candidato.getCpf()));
-        stmt.setString(4, candidato.getDescCurriculo());
-        stmt.setString(5, candidato.getDescEmail());
-        stmt.setInt(6, candidato.getCodigo());
+        stmt.setString(1, vaga.getDescVaga());
+        stmt.setString(2, String.valueOf(vaga.getDescRequisitos()));
+        stmt.setInt(3,vaga.getStatusVaga().ordinal());
+        stmt.setString(4, String.valueOf(vaga.getDataInicio()));
+        stmt.setString(5, String.valueOf(vaga.getDataFim()));
+        stmt.setInt(6, vaga.getCodigoVaga());
         int i = stmt.executeUpdate();
         System.out.println(i + "linhas atualizadas");
         connection.close();

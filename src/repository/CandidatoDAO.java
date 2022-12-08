@@ -57,7 +57,7 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
         return candidatosFiltrados;
     }
 
-    public Object[] findPessoasInArray() {
+    public Object[] findCandidatosInArray() {
         List<Candidato> candidatos = buscarTodos();
         List<String> candidatosNomes = new ArrayList<>();
 

@@ -23,9 +23,8 @@ public Integer getCodigo() {
     }
   
 
-    public int setCodigo(Integer codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-        return 0;
     }
 
     public String getDescCandidato() {
