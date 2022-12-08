@@ -29,6 +29,8 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
 
     @Override
     public void remover(Candidato objeto) throws SQLException, ClassNotFoundException {
+        CandidatoRepository candidatoRepository = new CandidatoRepository();
+        candidatoRepository.delete(objeto);
 
     }
 
@@ -57,7 +59,7 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
         return candidatosFiltrados;
     }
 
-    public Object[] findCandidatosInArray() {
+    public Object[] findCandidatoInArray() {
         List<Candidato> candidatos = buscarTodos();
         List<String> candidatosNomes = new ArrayList<>();
 

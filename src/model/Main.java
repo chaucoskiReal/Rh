@@ -35,6 +35,61 @@ public class Main {
 
     }
 
+    private static void chamaConfirmacaoCandidato() throws SQLException, ClassNotFoundException {
+        Integer opcaoCrud = chamaOpcaoCrud();
+        Candidato candidato = null;
+        switch (opcaoCrud){
+            case 0: //inserir
+                candidato = chamaCadastroCandidato();
+                break;
+
+            case 1: //alterar, tem que fazer as opcoes de alteracao
+                candidato = selecaoDeCandidato();
+                candidato = editaCandidato(candidato);
+                CandidatoDAO candidatoDAO = new CandidatoDAO();
+                candidatoDAO.salvar(candidato);
+                break;
+
+            case 2: //excluir, tem que fazer isso tambem
+                candidato = selecaoDeCandidato();
+                getCandidatoDAO().remover(candidato);
+                candidato = null;
+                break;
+        }
+
+
+    }
+
+    private static Candidato selecaoDeCandidato() throws SQLException, ClassNotFoundException {
+        Object[] selectionValues = getCandidatoDAO().findCandidatoInArray();
+        String initialSelection = (String) selectionValues[0];
+        Object selection = JOptionPane.showInputDialog(null, "Selecione o candidato: ",
+                "Candidato", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+        List<Candidato> candidatos = getCandidatoDAO().buscarPorNome((String) selection);
+        return candidatos.get(0);
+    }
+
+    private static Candidato editaCandidato(Candidato candidatoEdit) {
+        String descCandidato = JOptionPane.showInputDialog(null, "Digite a descrição do candidato: ", candidatoEdit.getDescCandidato());
+        LocalDate dataNascimento = LocalDate.parse(JOptionPane.showInputDialog(null, "Digite a data de nascimento: ", candidatoEdit.getDataNascimento()));
+        String cpf = JOptionPane.showInputDialog(null, "Digite o cpf: ", candidatoEdit.getCpf());
+        String descCurriculo = JOptionPane.showInputDialog(null, "Digite a descrição do curriculo: ", candidatoEdit.getDescCurriculo());
+        String email = JOptionPane.showInputDialog(null,"Digite o email: ",candidatoEdit.getDescEmail());
+
+        Candidato candidato = new Candidato();
+        candidato.setDescCandidato(descCandidato);
+        candidato.setDataNascimento(dataNascimento);
+        candidato.setCpf(cpf);
+        candidato.setDescCurriculo(descCurriculo);
+        candidato.setDescEmail(email);
+
+        return candidato;
+
+    }
+
+
+
+
     private static Integer chamaOpcaoCrud(){
         String[] opcao = {"Inserção", "Alteração", "Exclusão"};
         int tipoOpcao = JOptionPane.showOptionDialog(null,"Escolha uma opção: ",
@@ -211,7 +266,23 @@ public class Main {
     }
 
     private static void chamaCandidato() throws SQLException, ClassNotFoundException {
-        chamaCadastroCandidato();
+        chamaConfirmacaoCandidato();
     }
+
+    public static CandidatoDAO getCandidatoDAO(){
+        CandidatoDAO candidatoDAO = new CandidatoDAO();
+        return candidatoDAO;
+    }
+
+    public static ProcessoSeletivoDAO processoSeletivoDAO(){
+        ProcessoSeletivoDAO processoSeletivoDAO = new ProcessoSeletivoDAO();
+        return processoSeletivoDAO;
+    }
+
+    public static VagaDAO vagaDAO(){
+        VagaDAO vagaDAO = new VagaDAO();
+        return vagaDAO;
+    }
+
 }
 

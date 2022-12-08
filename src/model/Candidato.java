@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Candidato {
     private Integer codigo;
     private String descCandidato;
-    private LocalDate dataNascimento;
+    private String dataNascimento;
     private String cpf;
     private String descCurriculo;
     private String descEmail;
@@ -35,12 +35,12 @@ public Integer getCodigo() {
         this.descCandidato = descCandidato;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
+        this.dataNascimento = String.valueOf(dataNascimento);
     }
 
     public String getCpf() {
